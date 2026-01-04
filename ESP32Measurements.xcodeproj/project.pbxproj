@@ -7,12 +7,25 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		49456DE12F0AD6DC00C617B1 /* ESP32Measurements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESP32Measurements.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ESP32 Показания.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		49456E5E2F0AF9BF00C617B1 /* Exceptions for "ESP32Measurements" folder in "ESP32Measurements" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 49456DE02F0AD6DC00C617B1 /* ESP32Measurements */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		49456DE32F0AD6DC00C617B1 /* ESP32Measurements */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				49456E5E2F0AF9BF00C617B1 /* Exceptions for "ESP32Measurements" folder in "ESP32Measurements" target */,
+			);
 			path = ESP32Measurements;
 			sourceTree = "<group>";
 		};
@@ -40,7 +53,7 @@
 		49456DE22F0AD6DC00C617B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				49456DE12F0AD6DC00C617B1 /* ESP32Measurements.app */,
+				49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,7 +80,7 @@
 			packageProductDependencies = (
 			);
 			productName = ESP32Measurements;
-			productReference = 49456DE12F0AD6DC00C617B1 /* ESP32Measurements.app */;
+			productReference = 49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -178,11 +191,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -236,10 +250,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -256,6 +271,9 @@
 				DEVELOPMENT_TEAM = 598487U66T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ESP32Measurements/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -267,7 +285,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrewfirsenko.ESP32Measurements;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ESP32 Показания";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -288,6 +306,9 @@
 				DEVELOPMENT_TEAM = 598487U66T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ESP32Measurements/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,7 +320,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrewfirsenko.ESP32Measurements;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ESP32 Показания";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
