@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  ESP32Measurements
+
+  Created by Andrew on 21.02.2026.
+  
+*/
+
+CFBundleDisplayName = "ESP32 Readings";
