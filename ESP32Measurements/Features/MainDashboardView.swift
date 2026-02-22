@@ -8,38 +8,34 @@
 import SwiftUI
 
 struct MainDashboardView: View {
-    // MARK: - Private Properties
+    // MARK: - Public Properties
     @StateObject var viewModel: MainDashboardViewModel
     
     // MARK: - UI
     var body: some View {
-        VStack {
-            if let errorMessage = viewModel.errorMessage {
-                Text("Ошибка: \(errorMessage)")
-                    .foregroundStyle(.red)
+        ScrollView {
+            VStack(spacing: 16) {
+                // Current Values
+                HStack(spacing: 12) {
+                    SensorValueView(viewModel: viewModel.temperatureValue)
+                    SensorValueView(viewModel: viewModel.pressureValue)
+                    SensorValueView(viewModel: viewModel.humidityValue)
+                }
+                
+                // Charts
+                SensorChartView(viewModel: viewModel.temperatureChart)
+                SensorChartView(viewModel: viewModel.humidityChart)
+                SensorChartView(viewModel: viewModel.pressureChart)
             }
-            Section {
-                Text("Последние полученные показания для \"\(MainDashboardViewModel.PublicConstants.deviceId)\":")
-                Text("date: \(viewModel.dateText)")
-                Text("temperature: \(viewModel.temperatureText)")
-                Text("humidity: \(viewModel.humidityText)")
-                Text("pressure: \(viewModel.pressureText)")
-            }
-            .foregroundStyle(viewModel.errorMessage == nil ? .black : .gray)
-            Spacer()
+            .padding()
+            .navigationTitle("ESP32 Readings")
         }
-        .background(.white)
-        .onAppear {
-            viewModel.startPolling()
-        }
+        .scrollIndicators(.never)
     }
 }
 
 // MARK: - Preview
 #Preview {
-    MainDashboardView(
-        viewModel: MainDashboardViewModel(
-            esp32MeasurementsService: ESP32MeasurementsService()
-        )
-    )
+    let mock = MainDashboardViewModel()
+    MainDashboardView(viewModel: mock)
 }
