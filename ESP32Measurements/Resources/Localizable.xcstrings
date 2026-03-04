@@ -1,0 +1,51 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld %2$@"
+          }
+        }
+      }
+    },
+    "ESP32 Readings" : {
+
+    },
+    "input_device_id.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the Device ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Введите Device ID"
+          }
+        }
+      }
+    },
+    "Time" : {
+
+    },
+    "Value" : {
+
+    },
+    "Загрузка..." : {
+
+    },
+    "Он будет использован для идентификации устройства" : {
+
+    }
+  },
+  "version" : "1.1"
+}

@@ -86,6 +86,17 @@ final class MainDashboardViewModel: ObservableObject {
 //    }
     
     // MARK: - Public Methods
+    func onAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.temperatureValue.value = "20 °C"
+            self.humidityValue.value = "30 %"
+            self.pressureValue.value = "1000 hPa"
+            
+            self.temperatureValue.isLoading = false
+            self.humidityValue.isLoading = false
+            self.pressureValue.isLoading = false
+        }
+    }
 //    func startPolling() {
 //        timerCancellable?.cancel()
 //        timerCancellable = Timer.publish(every: 2.0, on: .main, in: .common)

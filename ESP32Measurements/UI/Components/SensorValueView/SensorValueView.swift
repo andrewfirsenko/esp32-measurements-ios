@@ -21,6 +21,7 @@ struct SensorValueView: View {
     var body: some View {
         contentView
             .padding()
+            .frame(maxWidth: .infinity, minHeight: 120)
             .background(
                 RoundedRectangle(cornerRadius: Constants.cardCornerRadius)
                     .fill(Color(.secondarySystemBackground))

@@ -10,6 +10,7 @@ import SwiftUI
 struct MainDashboardView: View {
     // MARK: - Public Properties
     @StateObject var viewModel: MainDashboardViewModel
+    @State var deviceId: String = ""
     
     // MARK: - UI
     var body: some View {
@@ -31,6 +32,9 @@ struct MainDashboardView: View {
             .navigationTitle("ESP32 Readings")
         }
         .scrollIndicators(.never)
+        .onAppear() {
+            viewModel.onAppear()
+        }
     }
 }
 
