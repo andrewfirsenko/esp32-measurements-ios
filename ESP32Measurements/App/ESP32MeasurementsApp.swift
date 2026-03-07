@@ -11,8 +11,7 @@ import SwiftUI
 struct ESP32MeasurementsApp: App {
     var body: some Scene {
         WindowGroup {
-            let viewModel = MainDashboardViewModel()
-            MainDashboardView(viewModel: viewModel)
+            InputDeviceIdView(deviceId: "") {}
         }
     }
 }

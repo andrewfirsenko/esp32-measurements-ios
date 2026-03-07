@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  ESP32Measurements
+
+  Created by Andrew on 07.03.2026.
+  
+*/
+
+"input_device_id.title" = "Enter the Device ID";
+"input_device_id.description" = "It will be used to identify the device";
+"input_device_id.button" = "Next";

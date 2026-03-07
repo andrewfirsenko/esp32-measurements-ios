@@ -1,0 +1,8 @@
+strings:
+  inputs:
+    - ESP32Measurements/Resources/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: ESP32Measurements/Resources/Generated/Strings.swift
+      params:
+        enumName: Strings
