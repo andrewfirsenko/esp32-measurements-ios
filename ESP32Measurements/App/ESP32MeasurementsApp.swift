@@ -17,7 +17,10 @@ struct ESP32MeasurementsApp: App {
         WindowGroup {
             NavigationStack {
                 if let deviceId = deviceIdState.deviceId, !deviceId.isEmpty {
-                    let viewModel = MainDashboardViewModel()
+                    let viewModel = MainDashboardViewModel(
+                        esp32MeasurementsService: ESP32MeasurementsService(),
+                        deviceIdState: deviceIdState
+                    )
                     MainDashboardView(
                         viewModel: viewModel,
                         deviceIdState: deviceIdState

@@ -10,22 +10,9 @@
 		49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ESP32 Показания.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		49456E5E2F0AF9BF00C617B1 /* Exceptions for "ESP32Measurements" folder in "ESP32Measurements" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 49456DE02F0AD6DC00C617B1 /* ESP32Measurements */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		49456DE32F0AD6DC00C617B1 /* ESP32Measurements */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				49456E5E2F0AF9BF00C617B1 /* Exceptions for "ESP32Measurements" folder in "ESP32Measurements" target */,
-			);
 			path = ESP32Measurements;
 			sourceTree = "<group>";
 		};
@@ -278,7 +265,7 @@
 				DEVELOPMENT_TEAM = 598487U66T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ESP32Measurements/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -317,7 +304,7 @@
 				DEVELOPMENT_TEAM = 598487U66T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ESP32Measurements/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

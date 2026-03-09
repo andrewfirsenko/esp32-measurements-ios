@@ -55,13 +55,19 @@ struct MainDashboardView: View {
         .onAppear() {
             viewModel.onAppear()
         }
+        .onDisappear {
+            viewModel.onDisappear()
+        }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    let mockViewModel = MainDashboardViewModel()
     let mockDeviceIdState = DeviceIdState()
+    let mockViewModel = MainDashboardViewModel(
+        esp32MeasurementsService: ESP32MeasurementsService(),
+        deviceIdState: mockDeviceIdState
+    )
     MainDashboardView(
         viewModel: mockViewModel,
         deviceIdState: mockDeviceIdState

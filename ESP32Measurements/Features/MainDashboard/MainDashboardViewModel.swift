@@ -19,15 +19,22 @@ final class MainDashboardViewModel: ObservableObject {
     @Published var humidityChart: SensorChartViewModel
     @Published var pressureChart: SensorChartViewModel
     
-    // MARK: - Private Properties
-//    private let esp32MeasurementsService: any ESP32MeasurementsServiceLogic
+    // MARK: - Dependencies
+    private let esp32MeasurementsService: any ESP32MeasurementsServiceLogic
+    private let deviceIdState: DeviceIdState
     
-    // MARK: Combine
-//    private var cancellables = Set<AnyCancellable>()
-//    private var timerCancellable: AnyCancellable?
+    // MARK: - Combine
+    private var cancellables = Set<AnyCancellable>()
+    private var timerCancellable: AnyCancellable?
     
     // MARK: - Init
-    init() {
+    init(
+        esp32MeasurementsService: any ESP32MeasurementsServiceLogic,
+        deviceIdState: DeviceIdState
+    ) {
+        self.esp32MeasurementsService = esp32MeasurementsService
+        self.deviceIdState = deviceIdState
+        
         self.temperatureValue = SensorValueViewModel(
             title: "Температура",
             systemImageName: "thermometer"
@@ -77,73 +84,76 @@ final class MainDashboardViewModel: ObservableObject {
             ]
         )
     }
-//    init(esp32MeasurementsService: any ESP32MeasurementsServiceLogic) {
-//        self.esp32MeasurementsService = esp32MeasurementsService
-//    }
-//    
-//    deinit {
-//        timerCancellable?.cancel()
-//    }
+    
+    deinit {
+        timerCancellable?.cancel()
+    }
     
     // MARK: - Public Methods
     func onAppear() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            self.temperatureValue.value = "20 °C"
-            self.humidityValue.value = "30 %"
-            self.pressureValue.value = "1000 hPa"
-            
-            self.temperatureValue.isLoading = false
-            self.humidityValue.isLoading = false
-            self.pressureValue.isLoading = false
-        }
+        timerCancellable?.cancel()
+        timerCancellable = Timer.publish(every: 5.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.fetchLastMeasurement()
+            }
+        fetchLastMeasurement()
     }
-//    func startPolling() {
-//        timerCancellable?.cancel()
-//        timerCancellable = Timer.publish(every: 2.0, on: .main, in: .common)
-//            .autoconnect()
-//            .sink { [weak self] _ in
-//                self?.fetchLastMeasurement()
-//            }
-//    }
+    
+    func onDisappear() {
+        timerCancellable?.cancel()
+        clearView()
+    }
 }
 
 // MARK: - Private Methods
 private extension MainDashboardViewModel {
-//    func fetchLastMeasurement() {
-//        esp32MeasurementsService.lastMeasurement(deviceId: PublicConstants.deviceId)
-//            .receive(on: DispatchQueue.main)
-//            .sink(
-//                receiveCompletion: { [weak self] completion in
-//                    guard let self else { return }
-//                    
-//                    switch completion {
-//                    case .finished:
-//                        self.errorMessage = nil
-//                    case let .failure(error):
-//                        self.errorMessage = error.localizedDescription
-//                    }
-//                },
-//                receiveValue: { [weak self] response in
-//                    guard let self else { return }
-//                    
-//                    self.dateText = "\(response.measurement.date)"
-//                    if let temperature = response.measurement.temperature {
-//                        self.temperatureText = "\(temperature)"
-//                    } else {
-//                        self.temperatureText = "Нет данных"
-//                    }
-//                    if let humidity = response.measurement.humidity {
-//                        self.humidityText = "\(humidity)"
-//                    } else {
-//                        self.humidityText = "Нет данных"
-//                    }
-//                    if let pressure = response.measurement.pressure {
-//                        self.pressureText = "\(pressure)"
-//                    } else {
-//                        self.pressureText = "Нет данных"
-//                    }
-//                }
-//            )
-//            .store(in: &cancellables)
-//    }
+    func fetchLastMeasurement() {
+        guard let deviceId = deviceIdState.deviceId else { return }
+        
+        esp32MeasurementsService.lastMeasurement(deviceId: deviceId)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] response in
+                    guard let self else { return }
+                    self.displayData(measurement: response)
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
+    func displayData(measurement: Measurement) {
+        temperatureValue.isLoading = false
+        humidityValue.isLoading = false
+        pressureValue.isLoading = false
+        
+        if let temperature = measurement.temperature {
+            temperatureValue.value = "\(temperature) °C"
+        } else {
+            temperatureValue.value = ""
+        }
+        
+        if let humidity = measurement.humidity {
+            humidityValue.value = "\(humidity) %"
+        } else {
+            humidityValue.value = ""
+        }
+        
+        if let pressure = measurement.pressure {
+            pressureValue.value = "\(pressure) hPa"
+        } else {
+            pressureValue.value = ""
+        }
+    }
+    
+    func clearView() {
+        temperatureValue.isLoading = true
+        humidityValue.isLoading = true
+        pressureValue.isLoading = true
+        
+        temperatureValue.value = ""
+        humidityValue.value = ""
+        pressureValue.value = ""
+    }
 }
