@@ -9,13 +9,19 @@ import SwiftUI
 
 struct MainDashboardView: View {
     // MARK: - Public Properties
+    @EnvironmentObject var deviceIdState: DeviceIdState
     @StateObject var viewModel: MainDashboardViewModel
-    @State var deviceId: String = ""
     
     // MARK: - UI
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                Text(deviceIdState.deviceId ?? "")
+                NavigationLink("Change device") {
+                    InputDeviceIdView()
+                        .environmentObject(deviceIdState)
+                }
+                
                 // Current Values
                 HStack(spacing: 12) {
                     SensorValueView(viewModel: viewModel.temperatureValue)

@@ -15,18 +15,12 @@ struct InputDeviceIdView: View {
         static let deviceIdPlaceholder = "0A:1B:2C:3D:4E:5F"
     }
     
+    // MARK: - Public Properties
+    @EnvironmentObject var deviceIdState: DeviceIdState
+    @Environment(\.dismiss) private var dismiss
+    
     // MARK: - Private Properties
     @State private var deviceId: String = ""
-    private let onNext: () -> Void
-    
-    // MARK: - Init
-    init(
-        deviceId: String,
-        onNext: @escaping () -> Void
-    ) {
-        self.deviceId = deviceId
-        self.onNext = onNext
-    }
     
     // MARK: - UI
     var body: some View {
@@ -59,7 +53,10 @@ struct InputDeviceIdView: View {
                 )
                 .padding(.horizontal)
             
-            Button(action: onNext) {
+            Button {
+                deviceIdState.deviceId = deviceId.nilIfEmpty
+                dismiss()
+            } label: {
                 Text(Strings.Localizable.InputDeviceId.button)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -72,10 +69,24 @@ struct InputDeviceIdView: View {
             
             Spacer()
         }
+        .onAppear {
+            deviceId = deviceIdState.deviceId ?? ""
+        }
+    }
+}
+
+// MARK: - String Extension
+private extension String {
+    var nilIfEmpty: String? {
+        if self.isEmpty {
+            return nil
+        } else {
+            return self
+        }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    InputDeviceIdView(deviceId: "") {}
+    InputDeviceIdView()
 }
