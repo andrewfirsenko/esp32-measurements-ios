@@ -8,22 +8,36 @@
 import SwiftUI
 
 struct MainDashboardView: View {
-    // MARK: - Public Properties
-    @EnvironmentObject var deviceIdState: DeviceIdState
+    // MARK: - Constants
+    private enum Constants {
+        static let deviceIdInputText = "deviceId:"
+        static let deviceIdLineLimit: Int = 1
+        static let currentValuesSpacing: CGFloat = 12
+        static let mainSpacing: CGFloat = 16
+    }
+    
+    // MARK: - Dependencies
     @StateObject var viewModel: MainDashboardViewModel
+    @StateObject var deviceIdState: DeviceIdState
     
     // MARK: - UI
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                Text(deviceIdState.deviceId ?? "")
-                NavigationLink("Change device") {
-                    InputDeviceIdView()
-                        .environmentObject(deviceIdState)
+            VStack(spacing: Constants.mainSpacing) {
+                HStack {
+                    Text(Constants.deviceIdInputText)
+                        .foregroundStyle(.secondary)
+                    Text(deviceIdState.deviceId ?? "")
+                        .foregroundStyle(.secondary)
+                        .lineLimit(Constants.deviceIdLineLimit)
+                    Spacer()
+                    NavigationLink(Strings.Localizable.MainDashboard.change) {
+                        InputDeviceIdView(deviceIdState: deviceIdState)
+                    }
                 }
                 
                 // Current Values
-                HStack(spacing: 12) {
+                HStack(spacing: Constants.currentValuesSpacing) {
                     SensorValueView(viewModel: viewModel.temperatureValue)
                     SensorValueView(viewModel: viewModel.pressureValue)
                     SensorValueView(viewModel: viewModel.humidityValue)
@@ -35,7 +49,7 @@ struct MainDashboardView: View {
                 SensorChartView(viewModel: viewModel.pressureChart)
             }
             .padding()
-            .navigationTitle("ESP32 Readings")
+            .navigationTitle(Strings.InfoPlist.cfBundleDisplayName)
         }
         .scrollIndicators(.never)
         .onAppear() {
@@ -46,6 +60,10 @@ struct MainDashboardView: View {
 
 // MARK: - Preview
 #Preview {
-    let mock = MainDashboardViewModel()
-    MainDashboardView(viewModel: mock)
+    let mockViewModel = MainDashboardViewModel()
+    let mockDeviceIdState = DeviceIdState()
+    MainDashboardView(
+        viewModel: mockViewModel,
+        deviceIdState: mockDeviceIdState
+    )
 }

@@ -6,6 +6,10 @@
   
 */
 
+// MARK: - InputDeviceIdView
 "input_device_id.title" = "Введите Device ID";
 "input_device_id.description" = "Он будет использован для идентификации устройства";
 "input_device_id.button" = "Далее";
+
+// MARK: - MainDashboardView
+"main_dashboard.change" = "изменить";

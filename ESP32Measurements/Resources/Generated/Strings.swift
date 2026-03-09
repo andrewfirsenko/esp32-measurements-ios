@@ -26,6 +26,10 @@ internal enum Strings {
       ///   Created by Andrew on 07.03.2026.
       internal static let title = Strings.tr("Localizable", "input_device_id.title", fallback: "Enter the Device ID")
     }
+    internal enum MainDashboard {
+      /// change
+      internal static let change = Strings.tr("Localizable", "main_dashboard.change", fallback: "change")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

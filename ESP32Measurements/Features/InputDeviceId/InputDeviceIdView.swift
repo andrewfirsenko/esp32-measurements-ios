@@ -15,8 +15,8 @@ struct InputDeviceIdView: View {
         static let deviceIdPlaceholder = "0A:1B:2C:3D:4E:5F"
     }
     
-    // MARK: - Public Properties
-    @EnvironmentObject var deviceIdState: DeviceIdState
+    // MARK: - Dependencies
+    @StateObject var deviceIdState: DeviceIdState
     @Environment(\.dismiss) private var dismiss
     
     // MARK: - Private Properties
@@ -54,7 +54,7 @@ struct InputDeviceIdView: View {
                 .padding(.horizontal)
             
             Button {
-                deviceIdState.deviceId = deviceId.nilIfEmpty
+                deviceIdState.deviceId = deviceId
                 dismiss()
             } label: {
                 Text(Strings.Localizable.InputDeviceId.button)
@@ -75,18 +75,8 @@ struct InputDeviceIdView: View {
     }
 }
 
-// MARK: - String Extension
-private extension String {
-    var nilIfEmpty: String? {
-        if self.isEmpty {
-            return nil
-        } else {
-            return self
-        }
-    }
-}
-
 // MARK: - Preview
 #Preview {
-    InputDeviceIdView()
+    let mockDeviceIdStack = DeviceIdState()
+    InputDeviceIdView(deviceIdState: mockDeviceIdStack)
 }

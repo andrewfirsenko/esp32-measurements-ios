@@ -12,16 +12,18 @@ struct ESP32MeasurementsApp: App {
     // MARK: - State
     @StateObject private var deviceIdState = DeviceIdState()
     
+    // MARK: - Scene
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                if deviceIdState.deviceId == nil {
-                    InputDeviceIdView()
-                        .environmentObject(deviceIdState)
-                } else {
+                if let deviceId = deviceIdState.deviceId, !deviceId.isEmpty {
                     let viewModel = MainDashboardViewModel()
-                    MainDashboardView(viewModel: viewModel)
-                        .environmentObject(deviceIdState)
+                    MainDashboardView(
+                        viewModel: viewModel,
+                        deviceIdState: deviceIdState
+                    )
+                } else {
+                    InputDeviceIdView(deviceIdState: deviceIdState)
                 }
             }
         }

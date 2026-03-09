@@ -17,12 +17,26 @@ final class DeviceIdState: ObservableObject {
     // MARK: - Public Properties
     @Published var deviceId: String? {
         didSet {
-            UserDefaults.standard.set(deviceId, forKey: Constants.deviceIdKey)
+            UserDefaults.standard.set(
+                deviceId?.nilIfEmpty,
+                forKey: Constants.deviceIdKey
+            )
         }
     }
     
     // MARK: - Init
     init() {
         self.deviceId = UserDefaults.standard.string(forKey: Constants.deviceIdKey)
+    }
+}
+
+// MARK: - String Extension
+private extension String {
+    var nilIfEmpty: String? {
+        if self.isEmpty {
+            return nil
+        } else {
+            return self
+        }
     }
 }
