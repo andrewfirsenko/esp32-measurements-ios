@@ -22,42 +22,83 @@ struct MainDashboardView: View {
     
     // MARK: - UI
     var body: some View {
-        ScrollView {
-            VStack(spacing: Constants.mainSpacing) {
-                HStack {
-                    Text(Constants.deviceIdInputText)
-                        .foregroundStyle(.secondary)
-                    Text(deviceIdState.deviceId ?? "")
-                        .foregroundStyle(.secondary)
-                        .lineLimit(Constants.deviceIdLineLimit)
-                    Spacer()
-                    NavigationLink(Strings.Localizable.MainDashboard.change) {
-                        InputDeviceIdView(deviceIdState: deviceIdState)
+        GeometryReader { geo in
+            ScrollView {
+                VStack(spacing: Constants.mainSpacing) {
+                    HStack {
+                        Text(Constants.deviceIdInputText)
+                            .foregroundStyle(.secondary)
+                        Text(deviceIdState.deviceId ?? "")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(Constants.deviceIdLineLimit)
+                        Spacer()
+                        NavigationLink(Strings.Localizable.MainDashboard.change) {
+                            InputDeviceIdView(deviceIdState: deviceIdState)
+                        }
                     }
+                    
+                    currentStateView
                 }
-                
-                // Current Values
-                HStack(spacing: Constants.currentValuesSpacing) {
-                    SensorValueView(viewModel: viewModel.temperatureValue)
-                    SensorValueView(viewModel: viewModel.pressureValue)
-                    SensorValueView(viewModel: viewModel.humidityValue)
-                }
-                
-                // Charts
-                SensorChartView(viewModel: viewModel.temperatureChart)
-                SensorChartView(viewModel: viewModel.humidityChart)
-                SensorChartView(viewModel: viewModel.pressureChart)
+                .frame(minHeight: geo.size.height)
+                .padding(.horizontal)
             }
-            .padding()
-            .navigationTitle(Strings.InfoPlist.cfBundleDisplayName)
+            .scrollIndicators(.never)
         }
-        .scrollIndicators(.never)
+        .navigationTitle(Strings.InfoPlist.cfBundleDisplayName)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear() {
             viewModel.onAppear()
         }
         .onDisappear {
             viewModel.onDisappear()
         }
+    }
+    
+    // MARK: - Private UI
+    @ViewBuilder
+    private var currentStateView: some View {
+        switch viewModel.state {
+        case .loading:
+            loadingView
+        case .error:
+            errorView
+        case .content:
+            contentView
+        }
+    }
+    
+    private var loadingView: some View {
+        VStack {
+            Spacer()
+            ProgressView()
+                .controlSize(.large)
+            Spacer()
+        }
+    }
+    
+    private var errorView: some View {
+        VStack {
+            Spacer()
+            WarningView() {
+                viewModel.onAppear()
+            }
+            Spacer()
+        }
+    }
+    
+    private var contentView: some View {
+        Text("content")
+//                    // Current Values
+//                    HStack(spacing: Constants.currentValuesSpacing) {
+//                        SensorValueView(viewModel: viewModel.temperatureValue)
+//                        SensorValueView(viewModel: viewModel.pressureValue)
+//                        SensorValueView(viewModel: viewModel.humidityValue)
+//                    }
+//
+//                    // Charts
+//                    SensorChartView(viewModel: viewModel.temperatureChart)
+//                    SensorChartView(viewModel: viewModel.humidityChart)
+//                    SensorChartView(viewModel: viewModel.pressureChart)
     }
 }
 

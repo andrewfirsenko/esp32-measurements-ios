@@ -13,3 +13,8 @@
 
 // MARK: - MainDashboardView
 "main_dashboard.change" = "изменить";
+
+// MARK: - WarningView
+"warning.connection_error_title" = "Ошибка подключения";
+"warning.connection_error_description" = "Не удается получить данные от устройства";
+"warning.try_again" = "Повторить попытку";

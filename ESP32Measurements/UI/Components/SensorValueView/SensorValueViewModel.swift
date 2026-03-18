@@ -13,7 +13,6 @@ final class SensorValueViewModel: ObservableObject {
     let title: String
     let systemImageName: String
     @Published var value: String
-    @Published var isLoading: Bool
     
     // MARK: - Init
     init(
@@ -23,6 +22,5 @@ final class SensorValueViewModel: ObservableObject {
         self.title = title
         self.systemImageName = systemImageName
         self.value = ""
-        self.isLoading = true
     }
 }

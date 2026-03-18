@@ -29,28 +29,7 @@ struct SensorValueView: View {
     }
     
     // MARK: - Private UI
-    @ViewBuilder
     private var contentView: some View {
-        if viewModel.isLoading {
-            self.loadingView
-        } else {
-            self.loadedView
-        }
-    }
-    
-    private var loadingView: some View {
-        VStack(spacing: Constants.cardSpacing) {
-            ProgressView()
-                .controlSize(.large)
-            Text("Загрузка...")
-                .font(.title3)
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-        }
-    }
-    
-    private var loadedView: some View {
         VStack(spacing: Constants.cardSpacing) {
             Image(systemName: viewModel.systemImageName)
                 .frame(maxWidth: .infinity, alignment: .leading)

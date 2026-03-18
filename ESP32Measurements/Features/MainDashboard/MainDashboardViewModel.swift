@@ -9,7 +9,15 @@ import SwiftUI
 import Combine
 
 final class MainDashboardViewModel: ObservableObject {
+    // MARK: - State
+    enum ScreenState {
+        case loading
+        case error
+        case content
+    }
+    
     // MARK: - Public Properties
+    @Published var state: ScreenState
     // Current Values
     @Published var temperatureValue: SensorValueViewModel
     @Published var humidityValue: SensorValueViewModel
@@ -35,6 +43,7 @@ final class MainDashboardViewModel: ObservableObject {
         self.esp32MeasurementsService = esp32MeasurementsService
         self.deviceIdState = deviceIdState
         
+        self.state = .loading
         self.temperatureValue = SensorValueViewModel(
             title: "Температура",
             systemImageName: "thermometer"
@@ -102,7 +111,7 @@ final class MainDashboardViewModel: ObservableObject {
     
     func onDisappear() {
         timerCancellable?.cancel()
-        clearView()
+        state = .loading
     }
 }
 
@@ -114,7 +123,15 @@ private extension MainDashboardViewModel {
         esp32MeasurementsService.lastMeasurement(deviceId: deviceId)
             .receive(on: DispatchQueue.main)
             .sink(
-                receiveCompletion: { _ in },
+                receiveCompletion: { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .finished:
+                        state = .content
+                    case .failure:
+                        state = .error
+                    }
+                },
                 receiveValue: { [weak self] response in
                     guard let self else { return }
                     self.displayData(measurement: response)
@@ -124,10 +141,6 @@ private extension MainDashboardViewModel {
     }
     
     func displayData(measurement: Measurement) {
-        temperatureValue.isLoading = false
-        humidityValue.isLoading = false
-        pressureValue.isLoading = false
-        
         if let temperature = measurement.temperature {
             temperatureValue.value = "\(temperature) °C"
         } else {
@@ -148,10 +161,6 @@ private extension MainDashboardViewModel {
     }
     
     func clearView() {
-        temperatureValue.isLoading = true
-        humidityValue.isLoading = true
-        pressureValue.isLoading = true
-        
         temperatureValue.value = ""
         humidityValue.value = ""
         pressureValue.value = ""

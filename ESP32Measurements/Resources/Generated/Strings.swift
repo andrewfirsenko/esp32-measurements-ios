@@ -30,6 +30,14 @@ internal enum Strings {
       /// change
       internal static let change = Strings.tr("Localizable", "main_dashboard.change", fallback: "change")
     }
+    internal enum Warning {
+      /// Data cannot be received from the device
+      internal static let connectionErrorDescription = Strings.tr("Localizable", "warning.connection_error_description", fallback: "Data cannot be received from the device")
+      /// Connection error
+      internal static let connectionErrorTitle = Strings.tr("Localizable", "warning.connection_error_title", fallback: "Connection error")
+      /// Try again
+      internal static let tryAgain = Strings.tr("Localizable", "warning.try_again", fallback: "Try again")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

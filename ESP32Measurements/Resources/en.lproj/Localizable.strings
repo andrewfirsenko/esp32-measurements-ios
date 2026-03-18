@@ -13,3 +13,8 @@
 
 // MARK: - MainDashboardView
 "main_dashboard.change" = "change";
+
+// MARK: - WarningView
+"warning.connection_error_title" = "Connection error";
+"warning.connection_error_description" = "Data cannot be received from the device";
+"warning.try_again" = "Try again";
