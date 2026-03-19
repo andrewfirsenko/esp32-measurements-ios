@@ -13,6 +13,9 @@
 
 // MARK: - MainDashboardView
 "main_dashboard.change" = "change";
+"main_dashboard.temperature" = "Temperature";
+"main_dashboard.humidity" = "Humidity";
+"main_dashboard.pressure" = "Pressure";
 
 // MARK: - WarningView
 "warning.connection_error_title" = "Connection error";

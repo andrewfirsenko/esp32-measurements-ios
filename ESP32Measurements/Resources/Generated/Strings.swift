@@ -29,6 +29,12 @@ internal enum Strings {
     internal enum MainDashboard {
       /// change
       internal static let change = Strings.tr("Localizable", "main_dashboard.change", fallback: "change")
+      /// Humidity
+      internal static let humidity = Strings.tr("Localizable", "main_dashboard.humidity", fallback: "Humidity")
+      /// Pressure
+      internal static let pressure = Strings.tr("Localizable", "main_dashboard.pressure", fallback: "Pressure")
+      /// Temperature
+      internal static let temperature = Strings.tr("Localizable", "main_dashboard.temperature", fallback: "Temperature")
     }
     internal enum Warning {
       /// Data cannot be received from the device

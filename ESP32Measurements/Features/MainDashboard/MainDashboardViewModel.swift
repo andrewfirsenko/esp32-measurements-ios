@@ -45,16 +45,16 @@ final class MainDashboardViewModel: ObservableObject {
         
         self.state = .loading
         self.temperatureValue = SensorValueViewModel(
-            title: "Температура",
-            systemImageName: "thermometer"
+            title: Strings.Localizable.MainDashboard.temperature,
+            imageResource: .tempratureIcon
         )
         self.humidityValue = SensorValueViewModel(
-            title: "Влажность",
-            systemImageName: "drop.fill"
+            title: Strings.Localizable.MainDashboard.humidity,
+            imageResource: .humidityIcon
         )
         self.pressureValue = SensorValueViewModel(
-            title: "Давление",
-            systemImageName: "gauge"
+            title: Strings.Localizable.MainDashboard.pressure,
+            imageResource: .pressureIcon
         )
         self.temperatureChart = SensorChartViewModel(
             title: "Температура за 24 часа",

@@ -13,6 +13,9 @@
 
 // MARK: - MainDashboardView
 "main_dashboard.change" = "изменить";
+"main_dashboard.temperature" = "Температура";
+"main_dashboard.humidity" = "Влажность";
+"main_dashboard.pressure" = "Давление";
 
 // MARK: - WarningView
 "warning.connection_error_title" = "Ошибка подключения";

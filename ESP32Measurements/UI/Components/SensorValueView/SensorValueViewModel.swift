@@ -11,16 +11,17 @@ import Combine
 final class SensorValueViewModel: ObservableObject {
     // MARK: - Public Properties
     let title: String
-    let systemImageName: String
+    let imageResource: ImageResource
     @Published var value: String
     
     // MARK: - Init
     init(
         title: String,
-        systemImageName: String
+        imageResource: ImageResource,
+        value: String = ""
     ) {
         self.title = title
-        self.systemImageName = systemImageName
-        self.value = ""
+        self.imageResource = imageResource
+        self.value = value
     }
 }

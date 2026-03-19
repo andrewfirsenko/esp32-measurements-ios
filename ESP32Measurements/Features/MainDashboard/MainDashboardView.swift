@@ -24,7 +24,7 @@ struct MainDashboardView: View {
     var body: some View {
         GeometryReader { geo in
             ScrollView {
-                VStack(spacing: Constants.mainSpacing) {
+                VStack {
                     HStack {
                         Text(Constants.deviceIdInputText)
                             .foregroundStyle(.secondary)
@@ -36,7 +36,6 @@ struct MainDashboardView: View {
                             InputDeviceIdView(deviceIdState: deviceIdState)
                         }
                     }
-                    
                     currentStateView
                 }
                 .frame(minHeight: geo.size.height)
@@ -87,18 +86,17 @@ struct MainDashboardView: View {
     }
     
     private var contentView: some View {
-        Text("content")
-//                    // Current Values
-//                    HStack(spacing: Constants.currentValuesSpacing) {
-//                        SensorValueView(viewModel: viewModel.temperatureValue)
-//                        SensorValueView(viewModel: viewModel.pressureValue)
-//                        SensorValueView(viewModel: viewModel.humidityValue)
-//                    }
-//
-//                    // Charts
-//                    SensorChartView(viewModel: viewModel.temperatureChart)
-//                    SensorChartView(viewModel: viewModel.humidityChart)
-//                    SensorChartView(viewModel: viewModel.pressureChart)
+        VStack(spacing: Constants.mainSpacing) {
+            HStack(spacing: Constants.currentValuesSpacing) {
+                SensorValueView(viewModel: viewModel.temperatureValue)
+                SensorValueView(viewModel: viewModel.pressureValue)
+                SensorValueView(viewModel: viewModel.humidityValue)
+            }
+
+            SensorChartView(viewModel: viewModel.temperatureChart)
+            SensorChartView(viewModel: viewModel.humidityChart)
+            SensorChartView(viewModel: viewModel.pressureChart)
+        }
     }
 }
 
