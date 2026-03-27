@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct ESP32MeasurementsApp: App {
     // MARK: - State
-    @StateObject private var deviceIdState = DeviceIdState()
+    @StateObject private var deviceIdState = DeviceIdState.shared
     
     // MARK: - Scene
     var body: some Scene {

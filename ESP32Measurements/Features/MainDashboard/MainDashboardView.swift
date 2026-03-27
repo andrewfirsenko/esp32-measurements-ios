@@ -102,7 +102,7 @@ struct MainDashboardView: View {
 
 // MARK: - Preview
 #Preview {
-    let mockDeviceIdState = DeviceIdState()
+    let mockDeviceIdState = DeviceIdState.shared
     let mockViewModel = MainDashboardViewModel(
         esp32MeasurementsService: ESP32MeasurementsService(),
         deviceIdState: mockDeviceIdState

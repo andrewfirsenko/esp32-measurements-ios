@@ -16,6 +16,9 @@
 "main_dashboard.temperature" = "Temperature";
 "main_dashboard.humidity" = "Humidity";
 "main_dashboard.pressure" = "Pressure";
+"main_dashboard.temperature_24_hours" = "Temperature in 24 hours";
+"main_dashboard.humidity_24_hours" = "Humidity in 24 hours";
+"main_dashboard.pressure_24_hours" = "Pressure in 24 hours";
 
 // MARK: - WarningView
 "warning.connection_error_title" = "Connection error";

@@ -26,7 +26,7 @@ struct SensorChartView: View {
                 // Gradient below charts
                 AreaMark(
                     x: .value("Time", point.date),
-                    y: .value("Value", point.value)
+                    y: .value("Value", point.value ?? Double.nan)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(
@@ -43,7 +43,7 @@ struct SensorChartView: View {
                 // Main line
                 LineMark(
                     x: .value("Time", point.date),
-                    y: .value("Value", point.value)
+                    y: .value("Value", point.value ?? Double.nan)
                 )
                 .foregroundStyle(viewModel.color)
                 .lineStyle(StrokeStyle(lineWidth: 3))
@@ -53,7 +53,7 @@ struct SensorChartView: View {
                 if point.id == viewModel.points.last?.id {
                     PointMark(
                         x: .value("Time", point.date),
-                        y: .value("Value", point.value)
+                        y: .value("Value", point.value ?? Double.nan)
                     )
                     .symbolSize(120)
                     .foregroundStyle(viewModel.color)

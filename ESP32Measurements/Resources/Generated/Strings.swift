@@ -31,10 +31,16 @@ internal enum Strings {
       internal static let change = Strings.tr("Localizable", "main_dashboard.change", fallback: "change")
       /// Humidity
       internal static let humidity = Strings.tr("Localizable", "main_dashboard.humidity", fallback: "Humidity")
+      /// Humidity in 24 hours
+      internal static let humidity24Hours = Strings.tr("Localizable", "main_dashboard.humidity_24_hours", fallback: "Humidity in 24 hours")
       /// Pressure
       internal static let pressure = Strings.tr("Localizable", "main_dashboard.pressure", fallback: "Pressure")
+      /// Pressure in 24 hours
+      internal static let pressure24Hours = Strings.tr("Localizable", "main_dashboard.pressure_24_hours", fallback: "Pressure in 24 hours")
       /// Temperature
       internal static let temperature = Strings.tr("Localizable", "main_dashboard.temperature", fallback: "Temperature")
+      /// Temperature in 24 hours
+      internal static let temperature24Hours = Strings.tr("Localizable", "main_dashboard.temperature_24_hours", fallback: "Temperature in 24 hours")
     }
     internal enum Warning {
       /// Data cannot be received from the device

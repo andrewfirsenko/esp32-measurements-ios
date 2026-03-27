@@ -16,6 +16,9 @@
 "main_dashboard.temperature" = "Температура";
 "main_dashboard.humidity" = "Влажность";
 "main_dashboard.pressure" = "Давление";
+"main_dashboard.temperature_24_hours" = "Температура за 24 часа";
+"main_dashboard.humidity_24_hours" = "Влажность за 24 часа";
+"main_dashboard.pressure_24_hours" = "Давление за 24 часа";
 
 // MARK: - WarningView
 "warning.connection_error_title" = "Ошибка подключения";

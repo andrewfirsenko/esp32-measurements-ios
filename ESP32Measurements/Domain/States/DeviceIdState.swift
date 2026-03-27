@@ -14,6 +14,9 @@ final class DeviceIdState: ObservableObject {
         static let deviceIdKey: String = "deviceIdKey"
     }
     
+    // MARK: - Singleton
+    static let shared = DeviceIdState()
+    
     // MARK: - Public Properties
     @Published var deviceId: String? {
         didSet {
@@ -25,7 +28,7 @@ final class DeviceIdState: ObservableObject {
     }
     
     // MARK: - Init
-    init() {
+    private init() {
         self.deviceId = UserDefaults.standard.string(forKey: Constants.deviceIdKey)
     }
 }

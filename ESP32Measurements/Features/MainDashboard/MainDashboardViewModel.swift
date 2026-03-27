@@ -9,11 +9,20 @@ import SwiftUI
 import Combine
 
 final class MainDashboardViewModel: ObservableObject {
-    // MARK: - State
+    // MARK: - Nested Types
     enum ScreenState {
         case loading
         case error
         case content
+    }
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let pollingTimeout: TimeInterval = 5.0
+        static let chartBreakTime: TimeInterval = 60 * 60
+        static let tempratureUnit = "°C"
+        static let pressureUnit = "hPa"
+        static let humidityUnit = "%"
     }
     
     // MARK: - Public Properties
@@ -57,112 +66,63 @@ final class MainDashboardViewModel: ObservableObject {
             imageResource: .pressureIcon
         )
         self.temperatureChart = SensorChartViewModel(
-            title: "Температура за 24 часа",
-            unit: "°C",
-            color: .red,
-            points: [
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771641189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771651189), value: 20),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771661189), value: 30),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771671189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771681189), value: 20),
-            ]
-        )
-        self.humidityChart = SensorChartViewModel(
-            title: "Влажность за 24 часа",
-            unit: "%",
-            color: .blue,
-            points: [
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771641189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771651189), value: 20),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771661189), value: 30),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771671189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771681189), value: 20),
-            ]
+            title: Strings.Localizable.MainDashboard.temperature24Hours,
+            unit: Constants.tempratureUnit,
+            color: .red
         )
         self.pressureChart = SensorChartViewModel(
-            title: "Давление за 24 часа",
-            unit: "hPa",
-            color: .green,
-            points: [
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771641189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771651189), value: 20),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771661189), value: 30),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771671189), value: 15),
-                SensorChartViewModel.ChartPoint(date: Date(timeIntervalSince1970: 1771681189), value: 20),
-            ]
+            title: Strings.Localizable.MainDashboard.pressure24Hours,
+            unit: Constants.pressureUnit,
+            color: .green
+        )
+        self.humidityChart = SensorChartViewModel(
+            title: Strings.Localizable.MainDashboard.humidity24Hours,
+            unit: Constants.humidityUnit,
+            color: .blue
         )
     }
     
     deinit {
+        cancellables.forEach { $0.cancel() }
         timerCancellable?.cancel()
     }
     
     // MARK: - Public Methods
     func onAppear() {
-        timerCancellable?.cancel()
-        timerCancellable = Timer.publish(every: 5.0, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                self?.fetchLastMeasurement()
-            }
-        fetchLastMeasurement()
+//        fetchLast24HoursMeasurements()
     }
     
     func onDisappear() {
-        timerCancellable?.cancel()
-        state = .loading
+//        cancellables.forEach { $0.cancel() }
+//        timerCancellable?.cancel()
+//        state = .loading
     }
 }
 
 // MARK: - Private Methods
 private extension MainDashboardViewModel {
-    func fetchLastMeasurement() {
-        guard let deviceId = deviceIdState.deviceId else { return }
-        
-        esp32MeasurementsService.lastMeasurement(deviceId: deviceId)
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .finished:
-                        state = .content
-                    case .failure:
-                        state = .error
-                    }
-                },
-                receiveValue: { [weak self] response in
-                    guard let self else { return }
-                    self.displayData(measurement: response)
-                }
-            )
-            .store(in: &cancellables)
-    }
-    
-    func displayData(measurement: Measurement) {
-        if let temperature = measurement.temperature {
-            temperatureValue.value = "\(temperature) °C"
-        } else {
-            temperatureValue.value = ""
+    func fetchLast24HoursMeasurements() {
+        guard let deviceId = deviceIdState.deviceId else {
+            state = .error
+            return
         }
         
-        if let humidity = measurement.humidity {
-            humidityValue.value = "\(humidity) %"
-        } else {
-            humidityValue.value = ""
-        }
-        
-        if let pressure = measurement.pressure {
-            pressureValue.value = "\(pressure) hPa"
-        } else {
-            pressureValue.value = ""
-        }
-    }
-    
-    func clearView() {
-        temperatureValue.value = ""
-        humidityValue.value = ""
-        pressureValue.value = ""
+//        Task { [weak self] in
+//            guard let self else { return }
+//            
+//            let toDate = Date()
+//            let fromDate = Date(timeInterval: -1 * 60 * 60 * 24, since: toDate)
+//            
+//            do {
+//                let measurements = try await esp32MeasurementsService.measurements(
+//                    deviceId: deviceId,
+//                    fromDate: fromDate,
+//                    toDate: toDate
+//                )
+//                debugPrint("log: 🟢 \(measurements.count)")
+//            } catch {
+//                debugPrint("log: 🔴 \(error)")
+//            }
+//        }
     }
 }

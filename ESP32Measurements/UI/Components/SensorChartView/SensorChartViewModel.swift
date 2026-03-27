@@ -13,7 +13,7 @@ final class SensorChartViewModel: ObservableObject {
     struct ChartPoint: Identifiable {
         let id: UUID = UUID()
         let date: Date
-        let value: Double
+        let value: Double?
     }
     
     // MARK: - Public Properties
@@ -27,7 +27,7 @@ final class SensorChartViewModel: ObservableObject {
         title: String,
         unit: String,
         color: Color,
-        points: [ChartPoint]
+        points: [ChartPoint] = []
     ) {
         self.title = title
         self.unit = unit

@@ -77,6 +77,6 @@ struct InputDeviceIdView: View {
 
 // MARK: - Preview
 #Preview {
-    let mockDeviceIdStack = DeviceIdState()
+    let mockDeviceIdStack = DeviceIdState.shared
     InputDeviceIdView(deviceIdState: mockDeviceIdStack)
 }
