@@ -6,8 +6,38 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		49815C412F77033E001C1AA0 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49815C3B2F77033E001C1AA0 /* Network.framework */; };
+		49815C422F77033E001C1AA0 /* Network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49815C3B2F77033E001C1AA0 /* Network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49815C3F2F77033E001C1AA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49456DD92F0AD6DC00C617B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49815C3A2F77033E001C1AA0;
+			remoteInfo = Network;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		49815C462F77033E001C1AA0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				49815C422F77033E001C1AA0 /* Network.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ESP32 Показания.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49815C3B2F77033E001C1AA0 /* Network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +46,23 @@
 			path = ESP32Measurements;
 			sourceTree = "<group>";
 		};
+		49815C3C2F77033E001C1AA0 /* Network */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		49456DDE2F0AD6DC00C617B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49815C412F77033E001C1AA0 /* Network.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49815C382F77033E001C1AA0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				49456DE32F0AD6DC00C617B1 /* ESP32Measurements */,
+				49815C3C2F77033E001C1AA0 /* Network */,
 				49456DE22F0AD6DC00C617B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,11 +85,22 @@
 			isa = PBXGroup;
 			children = (
 				49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */,
+				49815C3B2F77033E001C1AA0 /* Network.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		49815C362F77033E001C1AA0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		49456DE02F0AD6DC00C617B1 /* ESP32Measurements */ = {
@@ -55,10 +110,12 @@
 				49456DDD2F0AD6DC00C617B1 /* Sources */,
 				49456DDE2F0AD6DC00C617B1 /* Frameworks */,
 				49456DDF2F0AD6DC00C617B1 /* Resources */,
+				49815C462F77033E001C1AA0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				49815C402F77033E001C1AA0 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				49456DE32F0AD6DC00C617B1 /* ESP32Measurements */,
@@ -69,6 +126,29 @@
 			productName = ESP32Measurements;
 			productReference = 49456DE12F0AD6DC00C617B1 /* ESP32 Показания.app */;
 			productType = "com.apple.product-type.application";
+		};
+		49815C3A2F77033E001C1AA0 /* Network */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49815C432F77033E001C1AA0 /* Build configuration list for PBXNativeTarget "Network" */;
+			buildPhases = (
+				49815C362F77033E001C1AA0 /* Headers */,
+				49815C372F77033E001C1AA0 /* Sources */,
+				49815C382F77033E001C1AA0 /* Frameworks */,
+				49815C392F77033E001C1AA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				49815C3C2F77033E001C1AA0 /* Network */,
+			);
+			name = Network;
+			packageProductDependencies = (
+			);
+			productName = Network;
+			productReference = 49815C3B2F77033E001C1AA0 /* Network.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +161,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					49456DE02F0AD6DC00C617B1 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					49815C3A2F77033E001C1AA0 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -101,12 +184,20 @@
 			projectRoot = "";
 			targets = (
 				49456DE02F0AD6DC00C617B1 /* ESP32Measurements */,
+				49815C3A2F77033E001C1AA0 /* Network */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		49456DDF2F0AD6DC00C617B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49815C392F77033E001C1AA0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -123,7 +214,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49815C372F77033E001C1AA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49815C402F77033E001C1AA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49815C3A2F77033E001C1AA0 /* Network */;
+			targetProxy = 49815C3F2F77033E001C1AA0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		49456DEA2F0AD6DD00C617B1 /* Debug */ = {
@@ -333,6 +439,84 @@
 			};
 			name = Release;
 		};
+		49815C442F77033E001C1AA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 598487U66T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewfirsenko.Network;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		49815C452F77033E001C1AA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 598487U66T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewfirsenko.Network;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -350,6 +534,15 @@
 			buildConfigurations = (
 				49456DED2F0AD6DD00C617B1 /* Debug */,
 				49456DEE2F0AD6DD00C617B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		49815C432F77033E001C1AA0 /* Build configuration list for PBXNativeTarget "Network" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49815C442F77033E001C1AA0 /* Debug */,
+				49815C452F77033E001C1AA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

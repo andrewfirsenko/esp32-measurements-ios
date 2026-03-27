@@ -16,7 +16,7 @@ struct InputDeviceIdView: View {
     }
     
     // MARK: - Dependencies
-    @StateObject var deviceIdState: DeviceIdState
+    @StateObject var deviceIdState: DeviceIdState = DeviceIdState.shared
     @Environment(\.dismiss) private var dismiss
     
     // MARK: - Private Properties

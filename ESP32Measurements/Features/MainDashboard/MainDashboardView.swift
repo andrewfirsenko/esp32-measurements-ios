@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 struct MainDashboardView: View {
     // MARK: - Constants
@@ -19,6 +20,14 @@ struct MainDashboardView: View {
     // MARK: - Dependencies
     @StateObject var viewModel: MainDashboardViewModel
     @StateObject var deviceIdState: DeviceIdState
+    
+    // MARK: - Init
+    init(esp32MeasurementsService: any ESP32MeasurementsServiceLogic) {
+        self._viewModel = StateObject(
+            wrappedValue: MainDashboardViewModel(esp32MeasurementsService: esp32MeasurementsService)
+        )
+        self._deviceIdState = StateObject(wrappedValue: DeviceIdState.shared)
+    }
     
     // MARK: - UI
     var body: some View {
@@ -45,11 +54,8 @@ struct MainDashboardView: View {
         }
         .navigationTitle(Strings.InfoPlist.cfBundleDisplayName)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear() {
-            viewModel.onAppear()
-        }
-        .onDisappear {
-            viewModel.onDisappear()
+        .task {
+            await viewModel.startTask()
         }
     }
     
@@ -79,7 +85,7 @@ struct MainDashboardView: View {
         VStack {
             Spacer()
             WarningView() {
-                viewModel.onAppear()
+                debugPrint("log: did tap TryAgain")
             }
             Spacer()
         }
@@ -102,13 +108,8 @@ struct MainDashboardView: View {
 
 // MARK: - Preview
 #Preview {
-    let mockDeviceIdState = DeviceIdState.shared
-    let mockViewModel = MainDashboardViewModel(
-        esp32MeasurementsService: ESP32MeasurementsService(),
-        deviceIdState: mockDeviceIdState
-    )
+    let apiService = APIService()
     MainDashboardView(
-        viewModel: mockViewModel,
-        deviceIdState: mockDeviceIdState
+        esp32MeasurementsService: ESP32MeasurementsService(apiService: apiService)
     )
 }

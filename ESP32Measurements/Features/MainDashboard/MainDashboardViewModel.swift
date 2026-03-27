@@ -45,12 +45,9 @@ final class MainDashboardViewModel: ObservableObject {
     private var timerCancellable: AnyCancellable?
     
     // MARK: - Init
-    init(
-        esp32MeasurementsService: any ESP32MeasurementsServiceLogic,
-        deviceIdState: DeviceIdState
-    ) {
+    init(esp32MeasurementsService: any ESP32MeasurementsServiceLogic) {
         self.esp32MeasurementsService = esp32MeasurementsService
-        self.deviceIdState = deviceIdState
+        self.deviceIdState = DeviceIdState.shared
         
         self.state = .loading
         self.temperatureValue = SensorValueViewModel(
@@ -88,41 +85,32 @@ final class MainDashboardViewModel: ObservableObject {
     }
     
     // MARK: - Public Methods
-    func onAppear() {
-//        fetchLast24HoursMeasurements()
-    }
-    
-    func onDisappear() {
-//        cancellables.forEach { $0.cancel() }
-//        timerCancellable?.cancel()
-//        state = .loading
+    func startTask() async {
+        debugPrint("log: startTask")
+        await fetchLast24HoursMeasurements()
     }
 }
 
 // MARK: - Private Methods
 private extension MainDashboardViewModel {
-    func fetchLast24HoursMeasurements() {
+    func fetchLast24HoursMeasurements() async {
         guard let deviceId = deviceIdState.deviceId else {
             state = .error
             return
         }
         
-//        Task { [weak self] in
-//            guard let self else { return }
-//            
-//            let toDate = Date()
-//            let fromDate = Date(timeInterval: -1 * 60 * 60 * 24, since: toDate)
-//            
-//            do {
-//                let measurements = try await esp32MeasurementsService.measurements(
-//                    deviceId: deviceId,
-//                    fromDate: fromDate,
-//                    toDate: toDate
-//                )
-//                debugPrint("log: 🟢 \(measurements.count)")
-//            } catch {
-//                debugPrint("log: 🔴 \(error)")
-//            }
-//        }
+        let toDate = Date()
+        let fromDate = Date(timeInterval: -1 * 60 * 60 * 24, since: toDate)
+        
+        do {
+            let measurements = try await esp32MeasurementsService.measurements(
+                deviceId: deviceId,
+                fromDate: fromDate,
+                toDate: toDate
+            )
+            debugPrint("log: 🟢 \(measurements.count)")
+        } catch {
+            debugPrint("log: 🔴 \(error)")
+        }
     }
 }
