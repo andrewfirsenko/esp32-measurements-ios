@@ -49,8 +49,8 @@ enum ESP32MeasurementsEndpoint: Endpoint {
         case let .getMeasurements(deviceId, dateFrom, dateTo):
             return .queryParameters([
                 Constants.deviceId: deviceId,
-                Constants.dateFrom: dateFrom.timeIntervalSince1970,
-                Constants.dateTo: dateTo.timeIntervalSince1970,
+                Constants.dateFrom: Int(dateFrom.timeIntervalSince1970),
+                Constants.dateTo: Int(dateTo.timeIntervalSince1970)
             ])
         }
     }

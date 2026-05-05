@@ -86,7 +86,8 @@ final class MainDashboardViewModel: ObservableObject {
     
     // MARK: - Public Methods
     func startTask() async {
-        debugPrint("log: startTask")
+        debugPrint("log: startTask...")
+        state = .loading
         await fetchLast24HoursMeasurements()
     }
 }
@@ -108,9 +109,9 @@ private extension MainDashboardViewModel {
                 fromDate: fromDate,
                 toDate: toDate
             )
-            debugPrint("log: 🟢 \(measurements.count)")
+            state = .content
         } catch {
-            debugPrint("log: 🔴 \(error)")
+            state = .loading
         }
     }
 }

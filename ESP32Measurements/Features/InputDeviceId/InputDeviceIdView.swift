@@ -16,7 +16,7 @@ struct InputDeviceIdView: View {
     }
     
     // MARK: - Dependencies
-    @StateObject var deviceIdState: DeviceIdState = DeviceIdState.shared
+    @EnvironmentObject var deviceIdState: DeviceIdState
     @Environment(\.dismiss) private var dismiss
     
     // MARK: - Private Properties
@@ -77,6 +77,5 @@ struct InputDeviceIdView: View {
 
 // MARK: - Preview
 #Preview {
-    let mockDeviceIdStack = DeviceIdState.shared
-    InputDeviceIdView(deviceIdState: mockDeviceIdStack)
+    InputDeviceIdView().environmentObject(DeviceIdState.shared)
 }

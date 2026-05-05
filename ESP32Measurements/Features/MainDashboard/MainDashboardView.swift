@@ -18,15 +18,12 @@ struct MainDashboardView: View {
     }
     
     // MARK: - Dependencies
-    @StateObject var viewModel: MainDashboardViewModel
-    @StateObject var deviceIdState: DeviceIdState
+    @ObservedObject var viewModel: MainDashboardViewModel
+    @EnvironmentObject var deviceIdState: DeviceIdState
     
     // MARK: - Init
-    init(esp32MeasurementsService: any ESP32MeasurementsServiceLogic) {
-        self._viewModel = StateObject(
-            wrappedValue: MainDashboardViewModel(esp32MeasurementsService: esp32MeasurementsService)
-        )
-        self._deviceIdState = StateObject(wrappedValue: DeviceIdState.shared)
+    init(viewModel: MainDashboardViewModel) {
+        self.viewModel = viewModel
     }
     
     // MARK: - UI
@@ -42,7 +39,7 @@ struct MainDashboardView: View {
                             .lineLimit(Constants.deviceIdLineLimit)
                         Spacer()
                         NavigationLink(Strings.Localizable.MainDashboard.change) {
-                            InputDeviceIdView(deviceIdState: deviceIdState)
+                            InputDeviceIdView()
                         }
                     }
                     currentStateView
@@ -108,8 +105,7 @@ struct MainDashboardView: View {
 
 // MARK: - Preview
 #Preview {
-    let apiService = APIService()
-    MainDashboardView(
-        esp32MeasurementsService: ESP32MeasurementsService(apiService: apiService)
-    )
+    let esp32MeasurementsService = ESP32MeasurementsService(apiService: APIService())
+    let viewModel = MainDashboardViewModel(esp32MeasurementsService: esp32MeasurementsService)
+    MainDashboardView(viewModel: viewModel).environmentObject(DeviceIdState.shared)
 }

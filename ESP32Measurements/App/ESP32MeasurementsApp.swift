@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 @main
 struct ESP32MeasurementsApp: App {
@@ -17,16 +18,12 @@ struct ESP32MeasurementsApp: App {
         WindowGroup {
             NavigationStack {
                 if let deviceId = deviceIdState.deviceId, !deviceId.isEmpty {
-                    let viewModel = MainDashboardViewModel(
-                        esp32MeasurementsService: ESP32MeasurementsService(),
-                        deviceIdState: deviceIdState
-                    )
-                    MainDashboardView(
-                        viewModel: viewModel,
-                        deviceIdState: deviceIdState
-                    )
+                    let apiService = APIService()
+                    let esp32MeasurementsService = ESP32MeasurementsService(apiService: apiService)
+                    let viewModel = MainDashboardViewModel(esp32MeasurementsService: esp32MeasurementsService)
+                    MainDashboardView(viewModel: viewModel).environmentObject(deviceIdState)
                 } else {
-                    InputDeviceIdView(deviceIdState: deviceIdState)
+                    InputDeviceIdView().environmentObject(deviceIdState)
                 }
             }
         }
