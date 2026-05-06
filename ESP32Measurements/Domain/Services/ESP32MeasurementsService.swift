@@ -31,11 +31,10 @@ final class ESP32MeasurementsService: ESP32MeasurementsServiceLogic {
     
     // MARK: - Public Methods
     func lastMeasurement(deviceId: String) async throws -> LastMeasurementResponse {
-//        let response: Measurement = try await apiService.perform(
-//            endpoint: ESP32MeasurementsEndpoint.getLastMeasurement(deviceId: deviceId)
-//        )
-//        return response
-        throw NSError()
+        let response: LastMeasurementResponse = try await apiService.perform(
+            endpoint: ESP32MeasurementsEndpoint.getLastMeasurement(deviceId: deviceId)
+        )
+        return response
     }
     
     func measurements(deviceId: String, fromDate: Date, toDate: Date) async throws -> [LastMeasurementResponse] {

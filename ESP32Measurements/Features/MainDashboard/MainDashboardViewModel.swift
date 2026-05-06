@@ -25,6 +25,10 @@ final class MainDashboardViewModel: ObservableObject {
         static let humidityUnit = "%"
     }
     
+    // MARK: - Dependencies
+    private let esp32MeasurementsService: any ESP32MeasurementsServiceLogic
+    private let deviceIdState: DeviceIdState
+    
     // MARK: - Public Properties
     @Published var state: ScreenState
     // Current Values
@@ -36,12 +40,7 @@ final class MainDashboardViewModel: ObservableObject {
     @Published var humidityChart: SensorChartViewModel
     @Published var pressureChart: SensorChartViewModel
     
-    // MARK: - Dependencies
-    private let esp32MeasurementsService: any ESP32MeasurementsServiceLogic
-    private let deviceIdState: DeviceIdState
-    
-    // MARK: - Combine
-    private var cancellables = Set<AnyCancellable>()
+    // MARK: - Private Properties
     private var timerCancellable: AnyCancellable?
     
     // MARK: - Init
@@ -80,21 +79,27 @@ final class MainDashboardViewModel: ObservableObject {
     }
     
     deinit {
-        cancellables.forEach { $0.cancel() }
         timerCancellable?.cancel()
     }
     
     // MARK: - Public Methods
     func startTask() async {
-        debugPrint("log: startTask...")
+        timerCancellable?.cancel()
         state = .loading
-        await fetchLast24HoursMeasurements()
+        
+        do {
+            try await fetchLast24HoursMeasurements()
+            startPollingMeasurement()
+        } catch {
+            state = .error
+        }
     }
 }
 
 // MARK: - Private Methods
 private extension MainDashboardViewModel {
-    func fetchLast24HoursMeasurements() async {
+    func fetchLast24HoursMeasurements() async throws {
+        debugPrint("log: fetchLast24HoursMeasurements...")
         guard let deviceId = deviceIdState.deviceId else {
             state = .error
             return
@@ -103,15 +108,35 @@ private extension MainDashboardViewModel {
         let toDate = Date()
         let fromDate = Date(timeInterval: -1 * 60 * 60 * 24, since: toDate)
         
-        do {
-            let measurements = try await esp32MeasurementsService.measurements(
-                deviceId: deviceId,
-                fromDate: fromDate,
-                toDate: toDate
-            )
-            state = .content
-        } catch {
-            state = .loading
+        let measurements = try await esp32MeasurementsService.measurements(
+            deviceId: deviceId,
+            fromDate: fromDate,
+            toDate: toDate
+        )
+        debugPrint("log: 🟢 fetchLast24HoursMeasurements \(measurements.count)")
+        state = .content
+    }
+    
+    func fetchLastMeasurement() {
+        debugPrint("log: fetchLastMeasurement...")
+        Task {
+            guard let deviceId = deviceIdState.deviceId else { return }
+            
+            let lastMeasurement = try await esp32MeasurementsService.lastMeasurement(deviceId: deviceId)
+            debugPrint("log: 🟢 fetchLastMeasurement \(lastMeasurement.date)")
+        }
+    }
+    
+    func startPollingMeasurement() {
+        timerCancellable?.cancel()
+        timerCancellable = Timer.publish(
+            every: Constants.pollingTimeout,
+            on: .current,
+            in: .common
+        )
+        .autoconnect()
+        .sink { [weak self] _ in
+            self?.fetchLastMeasurement()
         }
     }
 }
